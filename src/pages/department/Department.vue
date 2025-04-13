@@ -42,6 +42,10 @@
                         <td>{{ department.id }}</td>
                         <td>{{ department.title }}</td>
                         <td>{{ department.details }}</td>
+                        <td class="d-flex justify-content-center">
+                            <RouterLink :to="`/department/edit/${department.id}`" class="btn btn-primary">Edit</RouterLink>
+                            <a class="btn btn-danger" @click="deletedept(department.id)">Delete</a>
+                        </td>
                     </tr>
                     
                 </tbody>
@@ -84,6 +88,18 @@ import { onMounted, ref } from 'vue';
             console.log(err);
             
         })
+    }
+    const deletedept=(id)=>{
+        axios.delete(`http://localhost/laravel/Hotel-Management-laravel/public/api/department/${id}`)
+        .then((result) => {
+            console.log(result.data);
+            if (result.data) {
+                fetchDepartment()
+            }
+            
+        }).catch((err) => {
+            
+        });
     }
 </script>
 
